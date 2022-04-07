@@ -168,6 +168,7 @@ func TestServer_FilterDNSRewrite(t *testing.T) {
 
 		assert.Equal(t, dns.SVCB_ALPN, ans.Value[0].Key())
 		assert.Equal(t, dns.SVCB_ALPN, ans.Value[1].Key())
+		// assert.Equal(t, "dohpath", ans.Value[1].Key().String())
 		assert.Equal(t, svcbVal.Params["alpn"], ans.Value[0].String())
 		assert.Equal(t, svcbVal.Params["dohpath"], ans.Value[1].String())
 		assert.Equal(t, svcbVal.Target, ans.Target)

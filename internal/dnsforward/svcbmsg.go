@@ -123,7 +123,9 @@ var svcbKeyHandlers = map[string]svcbKeyHandler{
 	"dohpath": func(valStr string) (val dns.SVCBKeyValue) {
 		// This is a temp dohpath param support, it could be implemented more
 		// effectively in miekg/dns lib.
-		// https://datatracker.ietf.org/doc/html/draft-ietf-add-svcb-dns-02#section-5.1
+		//
+		// See https://datatracker.ietf.org/doc/html/draft-ietf-add-svcb-dns-02#section-5.1.
+		//
 		// TODO(a.garipov): Wait for "dohpath" support in github.com/miekg/dns.
 		return &dns.SVCBLocal{
 			KeyCode: dns.SVCB_ALPN,
