@@ -166,11 +166,16 @@ func TestServer_FilterDNSRewrite(t *testing.T) {
 		ans, ok := d.Res.Answer[0].(*dns.SVCB)
 		require.True(t, ok)
 
-		assert.Equal(t, dns.SVCB_ALPN, ans.Value[0].Key())
-		assert.Equal(t, dns.SVCB_ALPN, ans.Value[1].Key())
-		// assert.Equal(t, "dohpath", ans.Value[1].Key().String())
-		assert.Equal(t, svcbVal.Params["alpn"], ans.Value[0].String())
-		assert.Equal(t, svcbVal.Params["dohpath"], ans.Value[1].String())
+		assert.ElementsMatch(
+			t,
+			[]dns.SVCBKey{dns.SVCB_ALPN, dns.SVCB_DOHPATH},
+			[]dns.SVCBKey{ans.Value[0].Key(), ans.Value[1].Key()},
+		)
+		assert.ElementsMatch(
+			t,
+			[]string{svcbVal.Params["alpn"], svcbVal.Params["dohpath"]},
+			[]string{ans.Value[0].String(), ans.Value[1].String()},
+		)
 		assert.Equal(t, svcbVal.Target, ans.Target)
 		assert.Equal(t, svcbVal.Priority, ans.Priority)
 	})
@@ -187,12 +192,18 @@ func TestServer_FilterDNSRewrite(t *testing.T) {
 
 		require.Len(t, d.Res.Answer, 1)
 		ans, ok := d.Res.Answer[0].(*dns.HTTPS)
-
 		require.True(t, ok)
-		assert.Equal(t, dns.SVCB_ALPN, ans.Value[0].Key())
-		assert.Equal(t, dns.SVCB_ALPN, ans.Value[1].Key())
-		assert.Equal(t, svcbVal.Params["alpn"], ans.Value[0].String())
-		assert.Equal(t, svcbVal.Params["dohpath"], ans.Value[1].String())
+
+		assert.ElementsMatch(
+			t,
+			[]dns.SVCBKey{dns.SVCB_ALPN, dns.SVCB_DOHPATH},
+			[]dns.SVCBKey{ans.Value[0].Key(), ans.Value[1].Key()},
+		)
+		assert.ElementsMatch(
+			t,
+			[]string{svcbVal.Params["alpn"], svcbVal.Params["dohpath"]},
+			[]string{ans.Value[0].String(), ans.Value[1].String()},
+		)
 		assert.Equal(t, svcbVal.Target, ans.Target)
 		assert.Equal(t, svcbVal.Priority, ans.Priority)
 	})

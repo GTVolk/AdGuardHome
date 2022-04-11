@@ -64,3 +64,5 @@ require (
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 	honnef.co/go/tools v0.2.2 // indirect
 )
+
+replace github.com/miekg/dns => github.com/ainar-g/dns v1.1.49-0.20220411125901-8a162bbc18d8
