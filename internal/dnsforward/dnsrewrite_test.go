@@ -164,7 +164,9 @@ func TestServer_FilterDNSRewrite(t *testing.T) {
 
 		require.Len(t, d.Res.Answer, 1)
 		ans, ok := d.Res.Answer[0].(*dns.SVCB)
+
 		require.True(t, ok)
+		require.Len(t, ans.Value, 2)
 
 		assert.ElementsMatch(
 			t,
@@ -192,7 +194,9 @@ func TestServer_FilterDNSRewrite(t *testing.T) {
 
 		require.Len(t, d.Res.Answer, 1)
 		ans, ok := d.Res.Answer[0].(*dns.HTTPS)
+
 		require.True(t, ok)
+		require.Len(t, ans.Value, 2)
 
 		assert.ElementsMatch(
 			t,
